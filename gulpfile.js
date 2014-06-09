@@ -12,12 +12,14 @@ gulp.task('stylus', function() {
 });
 
 gulp.task('jade', function() {
-	gulp.src('./compile/jade/**/*.jade')
-		.pipe(jade())
+	gulp.src(['./compile/jade/**/*.jade', '!./compile/jade/partials/*.jade'])
+		.pipe(jade({
+			pretty: true
+		}))
 		.pipe(gulp.dest('./'));
 });
 
 gulp.task('default', ['stylus', 'jade']);
 
 gulp.watch('./compile/stylus/**/*.styl', ['stylus']);
-gulp.watch('./compile/stylus/**/*.jade', ['jade']);
+gulp.watch('./compile/jade/**/*.jade', ['jade']);
