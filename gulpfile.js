@@ -19,7 +19,7 @@ gulp.task('stylus', function() {
 			use: [nib()]
 		}))
 		.pipe(gulp.dest('./public/css'))
-		.pipe(connect.reload();
+		.pipe(connect.reload());
 });
 
 gulp.task('jade', function() {
@@ -29,7 +29,7 @@ gulp.task('jade', function() {
 			pretty: true
 		}))
 		.pipe(gulp.dest('./public'))
-		.pipe(connect.reload();
+		.pipe(connect.reload());
 });
 
 gulp.task('default', ['stylus', 'jade', 'connect']);
