@@ -1,8 +1,7 @@
 var gulp = require('gulp');
-var stylus = require('gulp-stylus');
-var nib = require('nib');
 var jade = require('gulp-jade');
 var connect = require('gulp-connect');
+var sass = require('gulp-ruby-sass');
 var changed = require('gulp-changed');
 
 gulp.task('connect', function() {
@@ -13,10 +12,11 @@ gulp.task('connect', function() {
 	});
 });
 
-gulp.task('stylus', function() {
-	gulp.src('./compile/stylus/styles.styl')
-		.pipe(stylus({
-			use: [nib()]
+gulp.task('sass', function() {
+	gulp.src('./public/sass/styles.scss')
+		.pipe(sass({
+			sourcemapPath: '../sass',
+			sourcemap: true,
 		}))
 		.pipe(gulp.dest('./public/css'))
 		.pipe(connect.reload());
@@ -32,7 +32,7 @@ gulp.task('jade', function() {
 		.pipe(connect.reload());
 });
 
-gulp.task('default', ['stylus', 'jade', 'connect']);
+gulp.task('default', ['sass', 'jade', 'connect']);
 
-gulp.watch('./compile/stylus/**/*.styl', ['stylus']);
+gulp.watch('./public/sass/**/*.css.scss', ['sass']);
 gulp.watch('./compile/jade/**/*.jade', ['jade']);
